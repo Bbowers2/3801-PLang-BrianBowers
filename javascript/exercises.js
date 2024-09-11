@@ -1,4 +1,3 @@
-import { error } from "node:console"
 import { open } from "node:fs/promises"
 
 export function change(amount) {
@@ -22,13 +21,11 @@ export function firstThenLowerCase(array, predicate) {
   return first?.toLowerCase()
 }
 // Write your powers generator here
-export function* powersGenerator({ ofBase, upTo }) {
-  var exponent = 0
-  var value = ofBase ** exponent
-  while (value <= upTo) {
-    yield ofBase ** exponent
-    exponent++
-    value = ofBase ** exponent
+export function* powersGenerator({ ofBase: b, upTo: limit }) {
+  var value = b ** 0
+  while (value <= limit) {
+    yield value
+    value = value * b
   }
 }
 // Write your say function here
