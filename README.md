@@ -1,28 +1,19 @@
-# Homework Template for CMSI 3801
+# Homework Assignments
 
-Welcome!
+### Homework 1: Scripting (Lua, Javascript, Python)
+**Group:**  Brian Bowers
 
-## Instructions
+**About:**  This assignment consisted of reading the Preface and Chapters 1, 2, 3, and 5 of the textbook, as well as other reference readings. Then I had to complete five problems in three different languages: Python, Javascript, and Lua. Each problem was checked with its own unit tests. The first problem was to write a function that when given a sequence of strings and a predicate returns the first string that satisfies the predicate. The second problem was to write a generator, or a Lua coroutine, that yeilds successive powers of the base starting with the base to the zero power. The third problem was to write chainable functions that accept a string or no arguments and returns the words previously passed in. The fourth problem was another function that returns the number of meaningful text lines given a filename. The last problem was to write a class, table in Lua, that represents a Quaternion which supports adding, multiplying, obtaining the coefficients, computing the conjugate, supports-value based equality, and has a string representation. 
 
-Fork this repo for your homework submissions. Make sure your fork has a nice, descriptive name. Leaving the name as “lmu-cmsi-3801-template” is misleading, and keeping it indicates you are not taking sufficient pride in your work. After forking, **please replace the contents of this readme** file with information about your submissions, including the name(s) of the students, and a description of each assignment (as they are turned in).
-
-Don’t bother with notes to the graders. Such notes go into your BrightSpace submissions, not your GitHub repository.
-
-Your homework submissions will consist of programs in the following languages. To keep things simple, there is a separate folder for each language.
-
-- **Homework 1 (Scripting)**: Lua, Python, JavaScript
-- **Homework 2 (Enterprise)**: Java, Kotlin, Swift
-- **Homework 3 (Theory)**: TypeScript, OCaml, Haskell
-- **Homework 4 (Systems)**: C, C++, Rust
-- **Homework 5 (Concurrency)**: Go
-
-At each homework deadline, the graders will clone your repo and run the tests. I will be inspecting the source code, grading your work on style, clarity, and appropriate use of language idioms. Do not throw away points in these areas: **use code formatters and linters**. Please consider it a moral obligation to use these tools. Not doing so is a violation of professional ethics. _You must respect the naming, capitalization, formatting, spacing, and indentation conventions of each language_.
+Resources that helped me:
+- class notes 
+- the MDN Web Docs, such as https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject
+- python docs, such as https://docs.python.org/3/library/dataclasses.html
+- W3 schools, such as https://www.w3schools.com/jsref/jsref_try_catch.asp
+- Lua docs, such as https://www.lua.org/pil/6.1.html
+- other random articles: https://en.wikipedia.org/wiki/Quaternion#Quaternion_algebras, https://www.pythonmorsels.com/python-setattr/, https://www.freecodecamp.org/news/with-open-in-python-with-statement-syntax-example/
 
 ## The Test Suites
-
-The test files are included in the repo already. They are available for YOU! They will help you not only learn the languages and concepts covered in this course, but to help you with professional practice. You should get accustomed to writing code to make tests pass. As you grow in your profession, you will get used to writing your tests early.
-
-The test suites are run like so (assuming you have a Unix-like shell, modify as necessary if you have Windows):
 
 ### Lua
 

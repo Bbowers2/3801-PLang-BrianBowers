@@ -14,12 +14,12 @@ def change(amount: int) -> dict[int, int]:
     return counts
 
 
-# Write your first then lower case function here
+# first then lower case
 def first_then_lower_case(list, predicate, /):
     return next((value.lower() for value in list if predicate(value)), None)
 
 
-# Write your powers generator here
+# powers generator
 def powers_generator(*, base, limit):
     value = base**0
     while value <= limit:
@@ -27,28 +27,27 @@ def powers_generator(*, base, limit):
         value *= base
 
 
-# Write your say function here
+# say function
 def say(string=None, /):
     if string is not None:
         return lambda next_string=None: (
             say(string + " " + next_string) if next_string is not None else string
         )
-    else:
-        return ""
+    return ""
 
 
-# Write your line count function here
+# line count function
 def meaningful_line_count(file_name, /):
     with open(file_name) as file:
         count = 0
-
         for line in file:
-            if not line.strip().startswith("#") and line.strip():
+            strippedLine = line.strip()
+            if not strippedLine.startswith("#") and strippedLine:
                 count += 1
         return count
 
 
-# Write your Quaternion class here
+# Quaternion class
 @dataclass(frozen=True)
 class Quaternion:
 

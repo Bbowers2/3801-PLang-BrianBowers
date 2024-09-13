@@ -15,12 +15,13 @@ export function change(amount) {
   return counts
 }
 
-// Write your first then lower case function here
+// first then lower case function
 export function firstThenLowerCase(array, predicate) {
   const first = array.find(predicate)
   return first?.toLowerCase()
 }
-// Write your powers generator here
+
+// powers generator
 export function* powersGenerator({ ofBase: b, upTo: limit }) {
   var value = b ** 0
   while (value <= limit) {
@@ -28,7 +29,8 @@ export function* powersGenerator({ ofBase: b, upTo: limit }) {
     value = value * b
   }
 }
-// Write your say function here
+
+// say function
 export function say(string) {
   if (string != undefined) {
     return (newString) => {
@@ -38,21 +40,26 @@ export function say(string) {
     }
   } else return ""
 }
-// Write your line count function here
+
+// line count function
 export async function meaningfulLineCount(fileName) {
   const file = await open(fileName)
-  var count = 0
 
-  for await (const line of file.readLines()) {
-    if (!line.trim().startsWith("#") && line.trim().length != 0) {
-      count += 1
+  var count = 0
+  try {
+    for await (const line of file.readLines()) {
+      const trimmedLine = line.trim()
+      if (!trimmedLine.startsWith("#") && trimmedLine.length != 0) {
+        count += 1
+      }
     }
+    return count
+  } finally {
+    await file.close()
   }
-  await file.close()
-  return count
 }
 
-// Write your Quaternion class here
+// Quaternion class
 export class Quaternion {
   constructor(a, b, c, d) {
     Object.assign(this, { a, b, c, d })
