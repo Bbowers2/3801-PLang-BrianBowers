@@ -41,8 +41,8 @@ def meaningful_line_count(file_name, /):
     with open(file_name) as file:
         count = 0
         for line in file:
-            strippedLine = line.strip()
-            if not strippedLine.startswith("#") and strippedLine:
+            stripped_line = line.strip()
+            if not stripped_line.startswith("#") and stripped_line:
                 count += 1
         return count
 

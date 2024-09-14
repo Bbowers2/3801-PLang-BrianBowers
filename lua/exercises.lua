@@ -93,26 +93,26 @@ quaternionmeta = {
     return self.a == q.a and self.b == q.b and self.c == q.c and self.d == q.d
   end,
   __tostring = function(self)
-    local str = "0"
-    local vars = {"", "i", "j", "k"}
+    local string = "0"
+    local variables = {"", "i", "j", "k"}
     local values = {self.a, self.b, self.c, self.d}
 
     -- changing string to be in the form of a mathmatical expression
     for i = 1,4 do
       if values[i] ~= 0 then
         if values[i] == 1 then
-          if str == "0" then str = (i == 1 and values[1] or vars[i]) else str = str .. "+" .. vars[i] end
+          if string == "0" then string = (i == 1 and values[1] or variables[i]) else string = string .. "+" .. variables[i] end
         elseif values[i] == -1 then
-          if str == "0" then str = "-" .. (i == 1 and -values[1] or vars[i]) else str = str .. "-" .. vars[i] end
+          if string == "0" then string = "-" .. (i == 1 and -values[1] or variables[i]) else string = string .. "-" .. variables[i] end
         else
-          if str == "0" then
-             str = values[i] .. vars[i]
-          else str = values[i] < 0 and str .. values[i] .. vars[i] or str .. "+" .. values[i] .. vars[i]
+          if string == "0" then
+             string = values[i] .. variables[i]
+          else string = values[i] < 0 and string .. values[i] .. variables[i] or string .. "+" .. values[i] .. variables[i]
           end
         end
       end
     end
-    return str
+    return string
   end
 }
  
