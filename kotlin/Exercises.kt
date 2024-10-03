@@ -15,7 +15,9 @@ fun change(amount: Long): Map<Int, Long> {
 }
 
 // Write your first then lower case function here
-
+fun firstThenLowerCase(phrase: List<String>, predicate: (String) -> Boolean): String? {
+    return phrase.firstOrNull(predicate)?.lowercase()  
+}
 // Write your say function here
 
 // Write your meaningfulLineCount function here
