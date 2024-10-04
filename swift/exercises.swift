@@ -15,12 +15,10 @@ func change(_ amount: Int) -> Result<[Int:Int], NegativeAmountError> {
     return .success(counts)
 }
 
-// Write your first then lower case function here
 func firstThenLowerCase(of strings: [String], satisfying predicate: (String) -> Bool) -> String? {
     strings.first(where: predicate)?.lowercased()
 }
 
-// Write your say function here
 struct Say{
 
     let phrase: String
@@ -34,16 +32,17 @@ func say(_ word: String = "") -> Say {
     return Say(phrase: word)
 }
 
-// Write your meaningfulLineCount function here
 func meaningfulLineCount(_ filename: String) async -> Result<Int, Error> {
     guard let fileContents = try? String(contentsOfFile: filename) else {
         return .failure(NoSuchFileError())
     }
 
-    return .success(fileContents.readLines().filter { $0.trimmingCharacters(in: .whitespacesAndNewLines) == "" or $0.trimmingCharacters(in: .whitespacesAndNewLines).first() == "#" }.count)
+    return .success(fileContents.split(separator:"\n").filter {
+         let line = String($0).trimmingCharacters(in: .whitespacesAndNewlines)
+          return !(line.isEmpty || line.first == "#") 
+          }.count)
 }
 
-// Write your Quaternion struct here
 struct Quaternion: CustomStringConvertible, Equatable {
     let a, b, c, d: Double
 
@@ -54,7 +53,7 @@ struct Quaternion: CustomStringConvertible, Equatable {
         self.d = d;
     }
 
-    static let Zero: Quaternion = Quaternion(a: 0, b: 0, c: 0, d: 0)
+    static let ZERO: Quaternion = Quaternion(a: 0, b: 0, c: 0, d: 0)
     static let I: Quaternion = Quaternion(a: 0, b: 1, c: 0, d: 0)
     static let J: Quaternion = Quaternion(a: 0, b: 0, c: 1, d: 0)
     static let K: Quaternion = Quaternion(a: 0, b: 0, c: 0, d: 1)
@@ -67,45 +66,44 @@ struct Quaternion: CustomStringConvertible, Equatable {
         return Quaternion(a: a, b: -b, c: -c, d: -d)
     }
 
-    static func +(other: Quaternion) -> Quaternion {
-        return Quaternion(a + other.a, b + other.b, c + other.c, d + other.d)
+    static func +(first: Quaternion, second: Quaternion) -> Quaternion {
+        return Quaternion(a: first.a + second.a, b: first.b + second.b, c: first.c + second.c, d: first.d + second.d)
     }
 
-    static func *() -> Quaternion {
-        return Quaternion(
-            .a * other.a - .b * other.b - .c * other.c - .d * other.d,
-            .b * other.a + .a * other.b + .c * other.d - .d * other.c,
-            .a * other.c - .b * other.d + .c * other.a + .d * other.b,
-            .a * other.d + .b * other.c - .c * other.b + .d * other.a
-        )
+    static func *(first: Quaternion, second: Quaternion) -> Quaternion {
+            let a = first.a * second.a - first.b * second.b - first.c * second.c - first.d * second.d
+            let b = first.b * second.a + first.a * second.b + first.c * second.d - first.d * second.c
+            let c = first.a * second.c - first.b * second.d + first.c * second.a + first.d * second.b
+            let d = first.a * second.d + first.b * second.c - first.c * second.b + first.d * second.a
+        return Quaternion(a: a, b: b, c: c, d: d)
     }
 
     var description: String {
-        String s = "";
-        var coefficients = this.coefficients();
-        var terms = listOf("", "i", "j", "k");
+        var s = ""
+        let coefficients = self.coefficients
+        let terms = ["", "i", "j", "k"]
 
-        for coefficient, term in coefficients, terms {
+        for (coefficient, term) in zip(coefficients, terms) {
             if coefficient == 0 {
-                continue;
+                continue
             }
 
-            s += coefficient < 0 ? "-" : s.isEmpty() ? "" : "+";
+            s += coefficient < 0 ? "-" : s.isEmpty ? "" : "+"
 
-            if abs(coefficient) != 1 || i == 0 {
-                s += abs(coefficient);
+            if abs(coefficient) != 1 || term == "" {
+                s += "\(abs(coefficient))"
             }
 
-            s += term;
+            s += term
         }
 
-        return s.length() > 0 ? s : "0";
+        return s.isEmpty ? "0" : s
     }
 }
-// Write your Binary Search Tree enum here
+
 enum BinarySearchTree: CustomStringConvertible {
     case empty
-    indirect case Node(BinarySearchTree, String, BinarySearchTree)
+    indirect case node(BinarySearchTree, String, BinarySearchTree)
 
     var size: Int {
         switch self {
@@ -125,7 +123,7 @@ enum BinarySearchTree: CustomStringConvertible {
                 if value < v {
                     return left.contains(value)
                 } else if value > v {
-                    return right.constains(value)
+                    return right.contains(value)
                 } else {
                     return true
                 }
@@ -156,7 +154,5 @@ enum BinarySearchTree: CustomStringConvertible {
                 return "(\(left)\(value)\(right))".replacingOccurrences(of: "()", with: "")
         }
     }
-
-
 }
 
