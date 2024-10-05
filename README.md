@@ -13,6 +13,17 @@ Resources that helped me:
 - Lua docs, such as https://www.lua.org/pil/6.1.html
 - other random articles: https://en.wikipedia.org/wiki/Quaternion#Quaternion_algebras, https://www.pythonmorsels.com/python-setattr/, https://www.freecodecamp.org/news/with-open-in-python-with-statement-syntax-example/
 
+### Homework 2: Enterprise Languages (Java, Kotlin, Swift)
+**Group:**  Brian Bowers
+
+**About:**  This assignment consisted of reading the Preface and several chaphers of the textbook. This homework had the same questions as the first assignment with the addition of a new problem, creating a binary search tree for strings. This assignment focused on features such as immutibility and optionals, as well as limiting access to vars and methods in classes.
+
+Resources that helped me:
+- class notes 
+- the homework helper 2
+- https://www.hackingwithswift.com/, helped give concrete examples of how to use features in swift. 
+- https://www.w3schools.com/java/ for weird java features
+
 ## The Test Suites
 
 ### Lua
