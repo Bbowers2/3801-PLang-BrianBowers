@@ -16,8 +16,8 @@ fun change(amount: Long): Map<Int, Long> {
     return counts
 }
 
-fun firstThenLowerCase(phrase: List<String>, predicate: (String) -> Boolean): String? {
-    return phrase.firstOrNull(predicate)?.lowercase() 
+fun firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): String? {
+    return strings.firstOrNull(predicate)?.lowercase() 
 }
 
 data class Say(val phrase: String) {
