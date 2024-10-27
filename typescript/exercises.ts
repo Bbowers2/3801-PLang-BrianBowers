@@ -45,17 +45,33 @@ interface Sphere {
 interface Box {
   kind: "Box"
   width: number
-  height: number
+  length: number
   depth: number
 }
 
 export type Shape = Sphere | Box
 
-export function surfaceArea(shape: Shape): number {return 0}
-export function volume(shape: Box): number {return 0}
+export function surfaceArea(shape: Shape): number {
+
+  switch(shape.kind){
+    case "Sphere":
+      return 4 * Math.PI * shape.radius ** 2
+    case "Box":
+      return 2 * shape.width * shape.length + 2 * shape.length * shape.depth + 2 * shape.width * shape.depth
+  }
+
+}
+
+export function volume(shape: Shape): number {
+  switch(shape.kind){
+    case "Sphere":
+      return 4/3 * Math.PI * shape.radius ** 3
+    case "Box":
+      return shape.width * shape.length * shape.depth
+  }
+}
 
 
-// Write your binary search tree implementation here
 export interface BinarySearchTree<T>{
   size(): number
   insert(value: T): BinarySearchTree<T>
@@ -64,9 +80,65 @@ export interface BinarySearchTree<T>{
 }
 
 export class Empty<T> implements BinarySearchTree<T> {
+  size(): number {
+    return 0
+  }
 
+  insert(value: T): BinarySearchTree<T> {
+    return new Node(this, value, this);
+  }
+
+  contains(value: T): boolean {
+      return false
+  }
+
+  *inorder(): Iterable<T> {
+  
+  }
+
+  toString(): String {
+    return "()"
+  }
 }
 
-export class BinarySearchTree<T> implements BinarySearchTree<T> {
-  
+export class Node<T> implements BinarySearchTree<T> {
+  left: BinarySearchTree<T> | Empty<T>
+  right: BinarySearchTree<T> | Empty<T>
+  value: T
+
+  constructor(left: BinarySearchTree<T> | Empty<T>, value: T, right: BinarySearchTree<T> | Empty<T>){
+    this.left = left;
+    this.right = right;
+    this.value = value;
+  }
+
+  size(): number {
+    return this.left.size() + 1 + this.right.size()
+  }
+
+  insert(value: T): BinarySearchTree<T> {
+    if (value < this.value){
+      return new Node(this.left.insert(value), this.value, this.right)
+    }
+    else if (value > this.value){
+      return new Node(this.left, this.value, this.right.insert(value))
+    }
+    else {
+      return new Node(this.left, this.value, this.right)
+    }
+  }
+
+  contains(value: T): boolean {
+      return this.value === value || this.right.contains(value) || this.left.contains(value)
+  }
+
+  *inorder(): Iterable<T> {
+    yield* this.left.inorder()
+    yield this.value
+    yield* this.right.inorder()
+  }
+
+  toString(): String {
+    return (("(" + this.left.toString() + String(this.value) + this.right.toString() + ")").replace(/\(\)/g, ""))
+  }
 }
