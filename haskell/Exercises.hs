@@ -1,6 +1,16 @@
 module Exercises
     ( change,
-      -- put the proper exports here
+      firstThenApply,
+      powers,
+      meaningfulLineCount,
+      Shape(Sphere, Box),
+      volume,
+      surfaceArea,
+      BST(Empty),
+      size,
+      contains,
+      insert,
+      inorder
     ) where
 
 import qualified Data.Map as Map
@@ -20,12 +30,59 @@ change amount
                 (count, newRemaining) = remaining `divMod` d
                 newCounts = Map.insert d count counts
 
--- Write your first then apply function here
+firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b
+firstThenApply xs pred f = f <$> find pred xs
 
--- Write your infinite powers generator here
+powers :: Integral a => a -> [a]
+powers base = map (base^) [0..]
 
--- Write your line count function here
 
--- Write your shape data type here
+-- think this is failing
+meaningfulLineCount :: FilePath -> IO Int
+meaningfulLineCount fp = length . filter (\line -> not (all isSpace line) && not (isPrefixOf "--" line)) . lines <$> readFile fp
 
--- Write your binary search tree algebraic type here
+data Shape
+    = Sphere Double
+    | Box Double Double Double
+    deriving (Eq, Show)
+
+volume :: Shape -> Double
+volume (Sphere r) = 4/3 * pi * r^3
+volume (Box l w h) = l * w * h
+
+surfaceArea :: Shape -> Double
+surfaceArea (Sphere r) = 4 * pi * r^2
+surfaceArea (Box l w h) = 2 * l * w + 2 * w * h + 2 * h * l
+
+
+data BST a
+    = Empty
+    | Node a (BST a) (BST a)
+
+size :: BST a -> Int
+size Empty = 0
+size (Node _ left right) = 1 + size left + size right
+
+contains :: Eq a => a -> BST a -> Bool
+contains _ Empty = False
+contains v (Node value left right)
+    | v == value = True
+    | otherwise = contains v left || contains v right
+
+insert :: Ord a => a -> BST a -> BST a
+insert value Empty = Node value Empty Empty
+insert value (Node nodeValue left right)
+    | value < nodeValue = Node nodeValue (insert value left) right
+    | value > nodeValue = Node nodeValue left (insert value right)
+    | otherwise = Node nodeValue left right
+
+inorder :: BST a -> [a]
+inorder Empty = []
+inorder (Node value left right) = inorder left ++ [value] ++ inorder right
+
+instance (Show a) => Show (BST a) where
+    show :: Show a => BST a -> String
+    show Empty = "()"
+    show (Node value left right) = 
+        let s = "(" <> pack (show left) ++ <> pack show value <> pack show right ++ ")"
+        s.replace "()" ""
