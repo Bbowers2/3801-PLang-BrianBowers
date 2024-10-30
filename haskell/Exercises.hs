@@ -39,7 +39,12 @@ powers base = map (base^) [0..]
 
 -- think this is failing
 meaningfulLineCount :: FilePath -> IO Int
-meaningfulLineCount fp = length . filter (\line -> not (all isSpace line) && not (isPrefixOf "--" line)) . lines <$> readFile fp
+meaningfulLineCount fp = 
+        length . filter meaningfulLine . lines <$> readFile fp
+    where
+        meaningfulLine line = 
+            let trimmed = dropWhile isSpace line
+            in not (null trimmed) && not ("#" `isPrefixOf` trimmed)
 
 data Shape
     = Sphere Double
@@ -84,5 +89,5 @@ instance (Show a) => Show (BST a) where
     show :: Show a => BST a -> String
     show Empty = "()"
     show (Node value left right) = 
-        let s = "(" <> pack (show left) ++ <> pack show value <> pack show right ++ ")"
-        s.replace "()" ""
+        let s = "(" ++ show left ++  show value ++ show right ++ ")" in
+        Data.Text.unpack (Data.Text.replace (Data.Text.pack "()") (Data.Text.pack "") (Data.Text.pack s))
