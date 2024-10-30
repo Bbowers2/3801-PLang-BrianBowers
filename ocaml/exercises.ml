@@ -12,12 +12,78 @@ let change amount =
     in
     aux amount denominations
 
-(* Write your first then apply function here *)
+let first_then_apply array predicate consumer =
+  match List.find_opt predicate array with
+  | None -> None
+  | Some x -> consumer x;;
 
-(* Write your powers generator here *)
+let powers_generator base = 
+  let rec  generate_from power () =
+    Seq.Cons (power, generate_from (power * base))
+in
+generate_from 1;;
 
-(* Write your line count function here *)
+let meaningful_line_count filename =
+  let meaningful_line line = 
+    let trimmed = String.trim line in
+    String.length trimmed > 0 && not (String.starts_with "#" trimmed)
+  in
+  let the_file = open_in filename in
+  let finally () = close_in the_file in
+  let rec count_lines count =
+    try
+      let line = input_line the_file in 
+      if meaningful_line line then
+        count_lines (count + 1)
+      else
+        count_lines count
+    with
+    | End_of_file -> count
+  in
+  Fun.protect ~finally (fun () -> count_lines 0);;
 
-(* Write your shape type and associated functions here *)
 
-(* Write your binary search tree implementation here *)
+type shape = 
+  | Sphere of float
+  | Box of float * float * float
+
+let volume s = 
+  match s with
+  | Sphere r -> Float.pi *. (r ** 3.) *. 4. /. 3.
+  | Box (l, w, h) -> l *. w *. h;;
+
+let surface_area s =
+  match s with
+  | Sphere r -> 4. *. (r**2.) *. Float.pi
+  | Box (l, w, h) -> 2.*.l*.w +. 2.*.l*.h +. 2.*.w*.h
+
+
+type 'a binary_search_tree = 
+  | Empty
+  | Node of 'a binary_search_tree * 'a * 'a binary_search_tree
+
+let rec size tree =
+  match tree with
+  | Empty -> 0
+  | Node (left, _, right) -> 1 + size left + size right;;
+
+let rec contains v bst =
+  match bst with
+  | Empty -> false
+  | Node (left, value, right) -> v == value || contains v left || contains v right
+
+let rec insert v bst =
+  match bst with
+  | Empty -> Node (Empty, v, Empty)
+  | Node (left, value, right) ->
+    if v < value then 
+      Node (insert v left, value, right)
+    else if v > value then 
+      Node (left, value, insert v right)
+    else
+      Node (left, value, right)
+
+let rec inorder s =
+    match s with
+    | Empty -> []
+    | Node (left, value, right) -> inorder left @ [value] @ inorder right

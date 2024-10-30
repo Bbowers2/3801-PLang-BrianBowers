@@ -37,7 +37,6 @@ powers :: Integral a => a -> [a]
 powers base = map (base^) [0..]
 
 
--- think this is failing
 meaningfulLineCount :: FilePath -> IO Int
 meaningfulLineCount fp = 
         length . filter meaningfulLine . lines <$> readFile fp
