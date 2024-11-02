@@ -24,6 +24,18 @@ Resources that helped me:
 - https://www.hackingwithswift.com/, helped give concrete examples of how to use features in swift. 
 - https://www.w3schools.com/java/ for weird java features
 
+### Homework 3: Types (OCaml, Haskell, TypeScript)
+**Group:**  Brian Bowers
+
+**About:**  This assignment consisted of reading chapters 4 and 11 of the textbook. The problems for this homework were a combination of problems from Homework 1 and Homework 2. This assignment focused on explicit typing, function annoations, generic types or parametric polymorphism, as well as functional programming with Haskell and OCaml.
+
+Resources that helped me:
+- class notes 
+- the homework helper 3
+- https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+- https://ocaml.org/docs/formatting-text
+- others
+
 ## The Test Suites
 
 ### Lua

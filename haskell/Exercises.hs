@@ -31,19 +31,18 @@ change amount
                 newCounts = Map.insert d count counts
 
 firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b
-firstThenApply xs pred f = f <$> find pred xs
+firstThenApply xs predicate f = f <$> find predicate xs
 
 powers :: Integral a => a -> [a]
 powers base = map (base^) [0..]
 
-
 meaningfulLineCount :: FilePath -> IO Int
-meaningfulLineCount fp = 
-        length . filter meaningfulLine . lines <$> readFile fp
-    where
-        meaningfulLine line = 
-            let trimmed = dropWhile isSpace line
-            in not (null trimmed) && not ("#" `isPrefixOf` trimmed)
+meaningfulLineCount filePath = 
+    length . filter meaningfulLine . lines <$> readFile filePath
+  where
+    meaningfulLine line = 
+      let trimmed = dropWhile isSpace line
+      in not (null trimmed) && not ("#" `isPrefixOf` trimmed)
 
 data Shape
     = Sphere Double
@@ -57,7 +56,6 @@ volume (Box l w h) = l * w * h
 surfaceArea :: Shape -> Double
 surfaceArea (Sphere r) = 4 * pi * r^2
 surfaceArea (Box l w h) = 2 * l * w + 2 * w * h + 2 * h * l
-
 
 data BST a
     = Empty
@@ -88,5 +86,5 @@ instance (Show a) => Show (BST a) where
     show :: Show a => BST a -> String
     show Empty = "()"
     show (Node value left right) = 
-        let s = "(" ++ show left ++  show value ++ show right ++ ")" in
-        Data.Text.unpack (Data.Text.replace (Data.Text.pack "()") (Data.Text.pack "") (Data.Text.pack s))
+        let stringRepresentation = "(" ++ show left ++  show value ++ show right ++ ")" in
+        unpack (replace (pack "()") (pack "") (pack stringRepresentation))

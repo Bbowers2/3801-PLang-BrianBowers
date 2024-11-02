@@ -19,7 +19,6 @@ export function firstThenApply<T, U>(items: T[], predicate: (item: T) => boolean
   return first_element !== undefined ? consumer(first_element): undefined
 }
 
-
 export function* powersGenerator(base: bigint): Generator<bigint>{
   for (let exponentiation = 1n; ; exponentiation *= base)
     yield exponentiation
@@ -38,15 +37,15 @@ export async function meaningfulLineCount(filename: string){
 }
 
 interface Sphere {
-  kind: "Sphere"
-  radius: number
+  readonly kind: "Sphere"
+  readonly radius: number
 }
 
 interface Box {
-  kind: "Box"
-  width: number
-  length: number
-  depth: number
+  readonly kind: "Box"
+  readonly width: number
+  readonly length: number
+  readonly depth: number
 }
 
 export type Shape = Sphere | Box
@@ -71,6 +70,17 @@ export function volume(shape: Shape): number {
   }
 }
 
+export function equals(shape1:Shape, shape2: Shape): boolean{
+  if (shape1.kind === shape2.kind) {
+    switch (shape1.kind){
+      case "Sphere":
+        return shape1.radius === (shape2 as Sphere).radius
+      case "Box":
+        return (shape1.depth === (shape2 as Box).depth && shape1.length === (shape2 as Box).length && shape1.width === (shape2 as Box).width)
+    }
+  }
+  return false
+}
 
 export interface BinarySearchTree<T>{
   size(): number
@@ -88,7 +98,7 @@ export class Empty<T> implements BinarySearchTree<T> {
     return new Node(this, value, this);
   }
 
-  contains(value: T): boolean {
+  contains(_: T): boolean {
       return false
   }
 
@@ -101,10 +111,10 @@ export class Empty<T> implements BinarySearchTree<T> {
   }
 }
 
-export class Node<T> implements BinarySearchTree<T> {
-  left: BinarySearchTree<T> | Empty<T>
-  right: BinarySearchTree<T> | Empty<T>
-  value: T
+class Node<T> implements BinarySearchTree<T> {
+  readonly left: BinarySearchTree<T> | Empty<T>
+  readonly right: BinarySearchTree<T> | Empty<T>
+  readonly value: T
 
   constructor(left: BinarySearchTree<T> | Empty<T>, value: T, right: BinarySearchTree<T> | Empty<T>){
     this.left = left;
