@@ -52,25 +52,24 @@ public:
   }
 
   void push(T item) {
-    if (top == MAX_CAPACITY) {
-      throw overflow_error("stack has reached maximum capacity")
-    }
-    if (top == capacity){
-      reallocate(capacity * 2)
-    }
+    if (top == MAX_CAPACITY)
+      throw overflow_error("Stack has reached maximum capacity");
+    if (top == capacity)
+      reallocate(capacity * 2);
     elements[top++] = item;
   }
 
   T pop() {
-    if (is_empty()) {
+    if (is_empty())
       throw underflow_error("cannot pop from empty stack");
-    }
-    if (top < capacity / 4) {
+    if (top < capacity / 4)
       reallocate(capacity / 2);
-    }
 
     //get top value, pop it then overwrite the top element with the default value for security
-    return elements[--top]
+    
+    T popped_item = elements[--top];
+    elements[top] = T();
+    return popped_item;
   }
 
 private:
@@ -80,7 +79,15 @@ private:
   // to use std::move() to transfer ownership of the new array to the stack
   // after (of course) copying the elements from the old array to the new
   // array with std::copy().
-  void reallocate(int new capacity){
+  void reallocate(int new_capacity) {
+    if (new_capacity > MAX_CAPACITY)
+      new_capacity = MAX_CAPACITY;
+    else if  (new_capacity < INITIAL_CAPACITY)
+      new_capacity = INITIAL_CAPACITY;
 
+    unique_ptr<T[]> new_stack = make_unique<T[]>(new_capacity);
+    copy(elements.get(), elements.get() + top, new_stack.get());
+    elements = move(new_stack);
+    capacity = new_capacity;
   }
 };

@@ -16,7 +16,7 @@ impl<T> Stack<T> {
         self.items.pop()
     }
 
-    pub fn peek(&self) -> Option<T> {
+    pub fn peek(&self) -> Option<&T> {
         self.items.last()
     }
 
