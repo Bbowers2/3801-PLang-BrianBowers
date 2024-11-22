@@ -21,14 +21,9 @@ using namespace std;
 
 template <typename T>
 class Stack {
-  // Add three fields: elements, a smart pointer to the array of elements,
-  // capacity, the current capacity of the array, and top, the index of the
-  // next available slot in the array.
   unique_ptr<T[]> elements;
   int capacity;
   int top;
-
-  // Prohibit copying and assignment
   Stack(const Stack<T>&) = delete;
   Stack<T>& operator=(const Stack<T>&) = delete;
   
@@ -51,12 +46,12 @@ public:
     return top >= MAX_CAPACITY;
   }
 
-  void push(T item) {
+  void push(T element) {
     if (top == MAX_CAPACITY)
       throw overflow_error("Stack has reached maximum capacity");
     if (top == capacity)
       reallocate(capacity * 2);
-    elements[top++] = item;
+    elements[top++] = element;
   }
 
   T pop() {
@@ -64,27 +59,17 @@ public:
       throw underflow_error("cannot pop from empty stack");
     if (top < capacity / 4)
       reallocate(capacity / 2);
-
-    //get top value, pop it then overwrite the top element with the default value for security
-    
-    T popped_item = elements[--top];
+    T popped_element = elements[--top];
     elements[top] = T();
-    return popped_item;
+    return popped_element;
   }
 
 private:
-  // We recommend you make a PRIVATE reallocate method here. It should
-  // ensure the stack capacity never goes above MAX_CAPACITY or below
-  // INITIAL_CAPACITY. Because smart pointers are involved, you will need
-  // to use std::move() to transfer ownership of the new array to the stack
-  // after (of course) copying the elements from the old array to the new
-  // array with std::copy().
   void reallocate(int new_capacity) {
     if (new_capacity > MAX_CAPACITY)
       new_capacity = MAX_CAPACITY;
     else if  (new_capacity < INITIAL_CAPACITY)
       new_capacity = INITIAL_CAPACITY;
-
     unique_ptr<T[]> new_stack = make_unique<T[]>(new_capacity);
     copy(elements.get(), elements.get() + top, new_stack.get());
     elements = move(new_stack);

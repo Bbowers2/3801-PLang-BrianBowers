@@ -36,6 +36,19 @@ Resources that helped me:
 - https://ocaml.org/docs/formatting-text
 - others
 
+### Homework 4: System Languages (C, C++, Rust)
+**Group:**  Brian Bowers
+
+**About:**  This assignment consisted of reading chapter 13 (C) and 15 (Rust) of the textbook. The problem for this homework was to create a stack backed by a resizable array, or vec, for each of the languages. This assignment focused on memory safety and security.
+
+Resources that helped me:
+- class notes 
+- the homework helper 4
+- https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
+- https://cplusplus.com/reference/algorithm/copy/
+- https://www.reddit.com/r/cpp/comments/18dp02i/i_finally_understand_stdmove/
+- others
+
 ## The Test Suites
 
 ### Lua

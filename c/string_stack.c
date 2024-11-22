@@ -25,7 +25,6 @@ stack_response create () {
 }
 
 int size(const stack s) {
-    //check if bad pointer
     return s->top;
 }
 
@@ -62,7 +61,6 @@ string_response pop(stack s){
         return (string_response){stack_empty, NULL};
     char* popped = strdup(s->elements[--s->top]);
     free(s->elements[s->top]);
-
     if (s->top < 1/4 * s->capacity){
         int new_capacity = 1/2 * s->capacity;
         if (new_capacity < INITIAL_CAPACITY)
