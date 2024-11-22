@@ -56,13 +56,19 @@ int main() {
     expect("Pop after full stack not full", !is_full(s));
     expect("Pop after full stack size MAX_CAPACITY-1", size(s) == MAX_CAPACITY-1);
     expect("Popped value is expected", strcmp(r.string, "hi") == 0);
+    free(r.string);
 
     // Pop until empty
-    while (size(s) > 0) r = pop(s);
+    while (size(s) > 0) {
+      r = pop(s);
+      if (size(s) > 0)
+        free(r.string);
+    };
     expect("After popping everything, empty", is_empty(s));
     expect("After popping everything, not full", !is_full(s));
     expect("After popping everything, size 0", size(s) == 0);
     expect("Last value popped is expected", strcmp(r.string, "first!") == 0);
+    free(r.string);
 
     // Pop when empty is an error
     r = pop(s);
@@ -75,6 +81,7 @@ int main() {
     greeting[1] = 'u';
     r = pop(s);
     expect("Elements are defensively copied", strcmp(r.string, "hello") == 0);
+    free(r.string);
 
     // Destroy sets to null, for memory leak testing use an external tool
     destroy(&s);
