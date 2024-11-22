@@ -9,7 +9,6 @@ struct _Stack {
     char** elements;
     int capacity;
     int top;
-
 };
 
 stack_response create () {
