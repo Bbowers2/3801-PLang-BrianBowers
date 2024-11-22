@@ -43,7 +43,7 @@ public:
   }
   
   bool is_full() const {
-    return top >= MAX_CAPACITY;
+    return top == MAX_CAPACITY;
   }
 
   void push(T element) {

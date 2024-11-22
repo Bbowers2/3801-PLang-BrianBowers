@@ -11,7 +11,7 @@ struct _Stack {
     int top;
 };
 
-stack_response create () {
+stack_response create() {
     stack s = malloc(sizeof(struct _Stack));
     if (s == NULL)
         return (stack_response){out_of_memory, NULL};
@@ -31,16 +31,16 @@ bool is_empty(const stack s) {
     return size(s) == 0;
 }
 
-bool is_full(const stack s){
+bool is_full(const stack s) {
     return s->top == MAX_CAPACITY;
 }
 
-response_code push(stack s, char* item){
+response_code push(stack s, char* element) {
     if (is_full(s))
         return stack_full;
-    if (s->top == s->capacity){
+    if (s->top == s->capacity) {
         int new_capacity = s->capacity * 2;
-        if (new_capacity > MAX_CAPACITY){
+        if (new_capacity > MAX_CAPACITY) {
             new_capacity = MAX_CAPACITY;
         }
         char** new_elements = realloc(s->elements, new_capacity * sizeof(char*));
@@ -49,18 +49,18 @@ response_code push(stack s, char* item){
         s->elements = new_elements;
         s->capacity = new_capacity;
     }
-    if (strlen(item) + 1 > 256)
+    if (strlen(element) + 1 > 256)
         return stack_element_too_large;
-    s->elements[s->top++] = strdup(item);
+    s->elements[s->top++] = strdup(element);
     return success;
 }
 
-string_response pop(stack s){
+string_response pop(stack s) {
     if (is_empty(s))
         return (string_response){stack_empty, NULL};
     char* popped = strdup(s->elements[--s->top]);
     free(s->elements[s->top]);
-    if (s->top < 1/4 * s->capacity){
+    if (s->top < 1/4 * s->capacity) {
         int new_capacity = 1/2 * s->capacity;
         if (new_capacity < INITIAL_CAPACITY)
             new_capacity = INITIAL_CAPACITY;
@@ -74,7 +74,7 @@ string_response pop(stack s){
     return (string_response){success, popped};
 }
 
-void destroy(stack* s){
+void destroy(stack* s) {
     // needed for when the stack still has elements inside and destroy is called
     while ((*s)->top !=  0)
         free((*s)->elements[--(*s)->top]);
