@@ -68,7 +68,7 @@ private:
   void reallocate(int new_capacity) {
     if (new_capacity > MAX_CAPACITY)
       new_capacity = MAX_CAPACITY;
-    else if  (new_capacity < INITIAL_CAPACITY)
+    else if (new_capacity < INITIAL_CAPACITY)
       new_capacity = INITIAL_CAPACITY;
     unique_ptr<T[]> new_stack = make_unique<T[]>(new_capacity);
     copy(elements.get(), elements.get() + top, new_stack.get());
