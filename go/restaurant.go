@@ -53,6 +53,7 @@ func Customer(name string, wg *sync.WaitGroup) {
 			do(5, name, "waiting too long, abandoning order", order.id)
 		}
 	}
+	log.Println(name, "going home")
 }
 
 func main() {
