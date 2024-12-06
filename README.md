@@ -49,6 +49,18 @@ Resources that helped me:
 - https://www.reddit.com/r/cpp/comments/18dp02i/i_finally_understand_stdmove/
 - others
 
+### Homework 5: Concurrency (Go)
+**Group:**  Brian Bowers
+
+**About:**  This assignment consisted of reading chapter 12 of the textbook. The problem for this homework was to create a simulation of a restaurant in the language Go. This assignent focused on learning about concurrrency.
+
+Resources that helped me:
+- class notes 
+- the homework helper 5
+- https://go.dev/tour/welcome/1
+- https://gobyexample.com/
+- others
+
 ## The Test Suites
 
 ### Lua
