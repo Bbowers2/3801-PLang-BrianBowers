@@ -30,7 +30,7 @@ func newOrder(customer string) *order {
 }
 
 func Cook(name string) {
-	log.Println(name, "started working")
+	log.Println(name, "starting work")
 	for {
 		order := <-Waiter
 		do(10, name, "cooking order", order.id, "for", order.customer)
